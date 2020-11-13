@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--设置视口的宽度(值为设备的理想宽度)，页面初始缩放值<理想宽度/可见宽度>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- 引入Bootstrap核心样式文件 -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" type="text/css">
+    <!-- 引入jQuery核心js文件 -->
+    <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 引入BootStrap核心js文件 -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/index.js"></script>
+    <title>校园二手交易商城</title>
+    <script type="text/javascript">
+        $(function () {
+            var paramsValue = getParams();
+            console.log(paramsValue);
+        });
+
+        function getParams() {
+            try {
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var k_v = result.split("&");
+                var obj = {};
+                for (var i = 0; i < k_v.length; i++) {
+                    var item = k_v[i].split("=");
+                    obj[item[0]] = item[1];
+                    return obj
+                }
+            } catch (e) {
+                console.warn("There has no param and value!");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h3 style="text-align: center">欢迎</h3>
+</div>
+</body>
+</html>

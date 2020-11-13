@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jus.dao.IUserDao">
+    <resultMap id="BaseResultMap" type="com.jus.domain.User">
+        <id property="id" column="ID"/>
+        <result property="telNum" column="TELNUM"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="email" column="E_MAIL"/>
+    </resultMap>
+    <sql id="Column_name_list">
+        ID,
+        TELNUM,
+        PASSWORD,
+        E_MAIL
+    </sql>
+    <select id="findUserByTelOrEmail" resultMap="BaseResultMap" parameterType="com.jus.domain.User">
+        select
+        <include refid="Column_name_list"></include>
+        from login_info
+        <where>
+            <if test="email!= null and email!='' ">
+                OR E_MAIL = #{email}
+            </if>
+            <if test="telNum != null and telNum!='' ">
+                OR TELNUM = #{telNum}
+            </if>
+        </where>
+    </select>
+    <insert id="saveUser" parameterType="java.util.Map">
+        insert into login_info(<include refid="Column_name_list"></include>)
+        values (#{id},#{telNum},#{password},#{email})
+    </insert>
+    <select id="findUserByTelEmail" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Column_name_list"></include>
+        from login_info
+        <where>
+            <if test="email!= null and email!='' ">
+                OR E_MAIL = #{email}
+            </if>
+            <if test="telNum != null and telNum!='' ">
+                OR TELNUM = #{telNum}
+            </if>
+        </where>
+    </select>
+</mapper>
