@@ -13,10 +13,10 @@ var login = function () {
     if (checkData(num) == "error") {
         toastr.info("输入帐号格式有误,请输入手机号或邮箱账号！")
     } else {
-        if (checkData(num) == "email"){
+        if (checkData(num) == "email") {
             dataq.email = num;
         }
-        if (checkData(num) == "tel"){
+        if (checkData(num) == "tel") {
             dataq.telNum = num;
         }
         $.ajax({
@@ -27,7 +27,7 @@ var login = function () {
             data: JSON.stringify(dataq),
             success: function (data) {
                 if (data.id == null) {
-                    toastr.info("未查询到数据");
+                    toastr.info("帐号未注册!");
                 } else if (data.password == dataq.password) {
                     toastr.info("Success");
                 } else {

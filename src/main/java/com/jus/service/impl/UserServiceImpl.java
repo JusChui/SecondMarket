@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
     public void saveUser(Map<String, Object> user) {
         try {
             userDao.saveUser(user);
-        } catch (Exception throwables) {
+        } catch (Exception e) {
             throw new RuntimeException("程序异常,注册失败！");
         }
     }

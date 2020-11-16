@@ -58,7 +58,7 @@
                         }
                     },
                     error: function (jqXHR) {
-                        alert("发生错误：" + jqXHR.status);
+                        toastr.info("发生错误：" + jqXHR.status);
                     },
                 });
             }
@@ -118,6 +118,7 @@
         }
     }
 
+    //校验手机号格式
     function checkTel(tel) {
         var telReg = /^0?1[3|4|5|6|7|8|9][0-9]\d{8}$/;
         if (telReg.test(tel)) {
