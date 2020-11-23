@@ -26,10 +26,12 @@ var login = function () {
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(dataq),
             success: function (data) {
+                console.log(JSON.stringify(data));
                 if (data.id == null) {
                     toastr.info("帐号未注册!");
                 } else if (data.password == dataq.password) {
                     toastr.info("Success");
+                    // window.location.href = '/user/index';
                 } else {
                     toastr.info("账号未注册或账号密码不匹配");
                 }
@@ -44,8 +46,8 @@ var login = function () {
 }
 
 function checkData(num) {
-    var emailReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
-    var telReg = /^0?1[3|4|5|6|7|8|9][0-9]\d{8}$/;
+    let emailReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+    let telReg = /^0?1[3|4|5|6|7|8|9][0-9]\d{8}$/;
     if (emailReg.test(num)) {
         return "email";
     } else if (telReg.test(num)) {

@@ -3,44 +3,54 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jus.dao.IUserDao">
     <resultMap id="BaseResultMap" type="com.jus.domain.User">
-        <id property="id" column="ID"/>
-        <result property="telNum" column="TELNUM"/>
-        <result property="password" column="PASSWORD"/>
-        <result property="email" column="E_MAIL"/>
+        <id property="id" column="id"/>
+        <result property="telNum" column="telnum"/>
+        <result property="password" column="password"/>
+        <result property="email" column="e_mail"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="type" column="type"/>
+        <result property="birthday" column="birthday"/>
+        <result property="gender" column="gender"/>
     </resultMap>
     <sql id="Column_name_list">
-        ID,
-        TELNUM,
-        PASSWORD,
-        E_MAIL
+        id,
+        username,
+        nickname,
+        e_mail,
+        telnum,
+        password,
+        birthday,
+        type,
+        gender
     </sql>
     <select id="findUserByTelOrEmail" resultMap="BaseResultMap" parameterType="com.jus.domain.User">
         select
         <include refid="Column_name_list"></include>
-        from login_info
+        from user_info
         <where>
             <if test="email!= null and email!='' ">
-                OR E_MAIL = #{email}
+                OR e_mail = #{email}
             </if>
             <if test="telNum != null and telNum!='' ">
-                OR TELNUM = #{telNum}
+                OR telnum = #{telNum}
             </if>
         </where>
     </select>
     <insert id="saveUser" parameterType="java.util.Map">
-        insert into login_info(<include refid="Column_name_list"></include>)
-        values (#{id},#{telNum},#{password},#{email})
+        insert into user_info(<include refid="Column_name_list"></include>)
+        values (#{id},#{username},#{nickname},#{email},#{telNum},#{password},#{birthday},#{type},#{gender})
     </insert>
     <select id="findUserByTelEmail" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Column_name_list"></include>
-        from login_info
+        from user_info
         <where>
             <if test="email!= null and email!='' ">
-                OR E_MAIL = #{email}
+                OR e_mail = #{email}
             </if>
             <if test="telNum != null and telNum!='' ">
-                OR TELNUM = #{telNum}
+                OR telnum = #{telNum}
             </if>
         </where>
     </select>

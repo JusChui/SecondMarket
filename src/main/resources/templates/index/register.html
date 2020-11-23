@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
@@ -11,25 +11,52 @@
     <!-- 引入Bootstrap核心样式文件 -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/assets/css/toastr.min.css" type="text/css">
+    <!--引入BootStrap DataTimePicker核心样式文件-->
+    <link rel="stylesheet" href="/assets/css/bootstrap-datatimepicker.min.css">
     <!-- 引入jQuery核心js文件 -->
     <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <!-- 引入BootStrap核心js文件 -->
     <script src="/assets/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-
+    <!--引入BootStrap DateTimePicker核心js文件-->
+    <script src="/assets/js/moment-with-locales.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"
+            charset="UTF-8"></script>
     <script src="/assets/js/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/assets/js/messages_zh.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <style rel="stylesheet" type="text/css">
+        .input-group-addon {
+            width: auto;
+        }
+
+    </style>
 </head>
+
 <script type="text/javascript">
     $(function () {
+        dateInit();
         createCode(4);  //生成验证码
-        // checkForm();
         $("#submitBtn").on('click', register);
     });
 
+    function dateInit() {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: moment.locale('zh-cn'),
+            // defaultDate: "2020-02-08",
+            showTodayButton: true,
+            showClear: true,
+            allowInputToggle: true	//是否允许点击文本框弹出日期选择器。默认不允许。
+        });
+    }
+
     function register() {
         var inputCode = $("#checkCodeInput").val();
-        if ($("#inputEmail3").val() == "" && $("#inputTelNum").val() == "") {
+        if ($("#nickName").val() == "") {
+            toastr.info("请输入昵称");
+        } else if ($("#username").val() == "") {
+            toastr.info("请输入真实姓名");
+        } else if ($("#inputEmail3").val() == "" && $("#inputTelNum").val() == "") {
             toastr.info("邮箱和手机号必填一项");
         } else if ($("#inputEmail3").val() != "" && $("#inputTelNum").val() == "" && !checkEmail($("#inputEmail3").val())) {
             toastr.info("请检查邮箱格式");
@@ -130,7 +157,7 @@
 </script>
 <style>
     body {
-        background-color: wheat;
+        background-color: lightgray;
     }
 
     .form-control {
@@ -169,20 +196,37 @@
 
 </style>
 <body>
-<div class="container" style="text-align: center">
+<div class="container" style="text-align: center;margin-top: 15px;margin-right: inherit">
     <form class="form-horizontal" id="registerForm" method="post">
+        <!--昵称-->
+        <div class="form-group">
+            <label for="inputEmail3" class="col-md-2 control-label">昵称</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="nickName" placeholder="请输入昵称" name="nickname">
+            </div>
+        </div>
+        <!--用户名-->
+        <div class="form-group">
+            <label for="inputEmail3" class="col-md-2 control-label">用户名</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="username" placeholder="请输入用户真实姓名" name="username">
+            </div>
+        </div>
+        <!--邮箱-->
         <div class="form-group">
             <label for="inputEmail3" class="col-md-2 control-label">邮箱</label>
             <div class="col-md-10">
                 <input type="email" name='email' class="form-control" id="inputEmail3" placeholder="请输入邮箱">
             </div>
         </div>
+        <!--手机号-->
         <div class="form-group">
             <label for="inputEmail3" class="col-md-2 control-label">手机号</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" id="inputTelNum" placeholder="请输入手机号" name="telNum">
             </div>
         </div>
+        <!--密码-->
         <div class="form-group">
             <label for="inputPassword3" class="col-md-2 control-label">密码</label>
             <div class="col-md-10">
@@ -190,6 +234,7 @@
                        name="password">
             </div>
         </div>
+        <!--确认密码-->
         <div class="form-group">
             <label for="inputPassword2" class="col-md-2 control-label">确认密码</label>
             <div class="col-md-10">
@@ -197,6 +242,42 @@
                        name="repassword">
             </div>
         </div>
+        <!--时间日期组件-->
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="datetimepicker1">选择日期</label>
+            <div class='input-group date' id='datetimepicker1' style="padding-left: 15px;width: 50%">
+                <input type='text' class="form-control" id="birthday" name="birthday"/>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <!--性别单选按钮-->
+        <div class="form-group">
+            <label for="inputPassword2" class="col-md-2 control-label">性别</label>
+            <div class="col-md-10" style="width: auto">
+                <label class="radio-inline">
+                    <input type="radio" name="gender" id="gender1" value="1"> 男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" id="gender2" value="0"> 女
+                </label>
+            </div>
+        </div>
+        <!--身份类型单选按钮-->
+        <div class="form-group">
+            <label for="inputPassword2" class="col-md-2 control-label">身份类型</label>
+            <div class="col-md-10" style="width: auto">
+                <label class="radio-inline">
+                    <input type="radio" name="type" id="inlineRadio1" value="1"> 家庭成员
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" id="inlineRadio2" value="0"> 管理者
+                </label>
+            </div>
+        </div>
+
+        <!--验证码-->
         <div class="form-group">
             <label for="inputPassword2" class="col-md-2 control-label">验证码</label>
             <div class="col-md-10" style="width: 58%;">
@@ -204,13 +285,15 @@
                        style="width: auto;float: left" name="checkCode">
                 <div id="checkCode" style="float: left;margin-left: 10px" onclick="createCode(4)">
                 </div>
-                <span onclick="createCode(4)">看不清换一张</span>
+                <span onclick="createCode(4)" style="float: left">看不清换一张</span>
             </div>
         </div>
+        <!--按钮组-->
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10" style="width: 50%;">
                 <button type="submit" class="btn btn-default" style="float: right" id="submitBtn">注册</button>
                 <button type="reset" class="btn btn-default" style="float: right;margin-right: 10px">重置</button>
+                <a th:href="@{/user/login}" methods="" style="float: right;margin-right: 10px;padding-top: 6px">返回登录</a>
             </div>
         </div>
     </form>

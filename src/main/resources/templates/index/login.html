@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
@@ -16,13 +16,13 @@
     <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <!-- 引入BootStrap核心js文件 -->
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/login.js"></script>
 </head>
-<body style="background-color: wheat">
+<body style="background-color: lightgray">
 <div class="container">
     <div class="page-header" style="text-align: center">
-        <h1>安理工二手交易平台 <small>专于为学生提供二手物品交易</small></h1>
+        <h1>家庭理财记账系统 <small>专于为家庭提供理财记账</small></h1>
     </div>
 </div>
 <div class="container" style="text-align: center;margin-top: 10px;">
@@ -37,7 +37,8 @@
                    placeholder="Please Input Password" autocomplete="on">
         </div>
         <div style="display: inline-block;float: right">
-            <a href="/user/register" methods="">没有帐号？去注册</a>
+            <a th:href="@{/user/register}" methods="" style="margin-right: 10px">没有帐号?去注册</a>
+<!--            <a href="/user/register" methods="">没有帐号？去注册</a>-->
             <button type="submit" class="btn btn-default" id="loginBtn">Submit</button>
         </div>
     </form>

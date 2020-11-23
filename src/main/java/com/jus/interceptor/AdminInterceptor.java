@@ -1,5 +1,6 @@
 package com.jus.interceptor;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2020/11/12 16:34
  * @Description:
  */
+@Component
 public class AdminInterceptor implements HandlerInterceptor {
 
     /**
@@ -23,7 +25,15 @@ public class AdminInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return false;
+        String uri = request.getRequestURI();
+        if (uri.startsWith("/admin") && null == request.getSession().getAttribute("loginUser")){
+            request.getSession().setAttribute("error","请重新登录");
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return false;
+        } else {
+            request.getSession().removeAttribute("errorMsg");
+            return true;
+        }
     }
 
     @Override

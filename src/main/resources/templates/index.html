@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--设置视口的宽度(值为设备的理想宽度)，页面初始缩放值<理想宽度/可见宽度>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- 引入Bootstrap核心样式文件 -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" type="text/css">
+    <!-- 引入jQuery核心js文件 -->
+    <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 引入BootStrap核心js文件 -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/index.js"></script>
+    <title>家庭的理财记账系统 </title>
+    <script type="text/javascript">
+        $(function () {
+            window.setInterval(reinitIframe, 100);
+            var paramsValue = getParams();
+            console.log(paramsValue);
+            console.log()
+        });
+
+        function getParams() {
+            try {
+                var url = window.location.href;
+                var result = url.split("?")[1];
+                var k_v = result.split("&");
+                var obj = {};
+                for (var i = 0; i < k_v.length; i++) {
+                    var item = k_v[i].split("=");
+                    obj[item[0]] = item[1];
+                    return obj
+                }
+            } catch (e) {
+                console.warn("There has no param and value!");
+            }
+        }
+
+        function reinitIframe() {
+            var iframe = document.getElementById("iframep");
+            // var content = $("#iframep").contentWindow.document;
+            // console.log(content);
+            try {
+                var bHeight = iframe.contentWindow.document.body.scrollHeight;
+                var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+                var height = Math.max(bHeight, dHeight);
+                iframe.height = height;
+                console.log(height);
+            } catch (ex) {
+            }
+        }
+
+        function showPersonMenu(param) {
+            // console.log($("#person_icon").attr("class"));
+            if (param == 'person') {
+                $("#personal_menu").slideToggle(
+                    function () {
+                        ($("#person_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
+                            ($("#person_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#person_icon").attr("class",
+                            "glyphicon glyphicon-triangle-top"));
+                    }
+                );
+            } else if (param == 'family') {
+                $("#family_menu").slideToggle(
+                    function () {
+                        ($("#family_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
+                            ($("#family_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#family_icon").attr("class",
+                            "glyphicon glyphicon-triangle-top"));
+                    }
+                );
+            } else if (param == 'income') {
+                $("#income_menu").slideToggle(
+                    function () {
+                        ($("#income_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
+                            ($("#income_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#income_icon").attr("class",
+                            "glyphicon glyphicon-triangle-top"));
+                    }
+                );
+            } else if (param == 'menu4') {
+                $("#menu4_menu").slideToggle(
+                    function () {
+                        ($("#menu4_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
+                            ($("#menu4_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#menu4_icon").attr("class",
+                            "glyphicon glyphicon-triangle-top"));
+                    }
+                );
+            } else if (param == 'menu5') {
+                $("#menu5_menu").slideToggle(
+                    function () {
+                        ($("#menu5_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
+                            ($("#menu5_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#menu5_icon").attr("class",
+                            "glyphicon glyphicon-triangle-top"));
+                    }
+                );
+            }
+        }
+    </script>
+    <style rel="stylesheet" type="text/css">
+        body {
+            background: lightgrey;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="page-header">
+                <h1>
+                    <font face="zapf dingbats">家庭理财记账系统 </font>
+                    <small style="float: right;padding-top: 50px;font-size: 15px;">
+                        <!-- 欢迎您:XXX! -->
+                        <a href="/user/login">[登录]</a>
+                        <a href="/user/register">[注册]</a>
+                    </small>
+
+                </h1>
+                <small>Subtext for header</small>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="width: 25%;float: left;">
+        <ul class="list-group">
+            <li class="list-group-item" onclick="showPersonMenu('person')">
+						<span>
+							个人信息管理
+							<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="float: right;"
+                                  id="person_icon">
+							</span>
+						</span>
+            </li>
+            <ul class="list-group" id="personal_menu" style="background-color: white;display: none;">
+                <li class="list-group-item">
+                    <a href="#">
+                        修改个人资料
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        注销个人信息
+                    </a>
+                </li>
+            </ul>
+            <li class="list-group-item" style="margin-top: 10px;" onclick="showPersonMenu('family')">
+						<span>
+							家庭信息管理
+							<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="float: right;"
+                                  id="family_icon">
+							</span>
+						</span>
+            </li>
+            <ul class="list-group" id="family_menu" style="background-color: white;display: none;">
+                <li class="list-group-item">
+                    <a href="#">
+                        查看家庭成员信息
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        管理个人信息
+                    </a>
+                </li>
+            </ul>
+            <li class="list-group-item" style="margin-top: 10px;" onclick="showPersonMenu('income')">
+						<span>
+							收入信息管理
+							<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="float: right;"
+                                  id="income_icon">
+							</span>
+						</span>
+            </li>
+            <ul class="list-group" id="income_menu" style="background-color: white;display: none;">
+                <li class="list-group-item">
+                    <a href="#">
+                        查看收入信息日志
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        添加我的收入信息
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item" onclick="showPersonMenu('menu4')" style="margin-top: 10px;">
+							<span>
+								个人信息管理
+								<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+                                      style="float: right;" id="menu4_icon">
+								</span>
+							</span>
+                </li>
+                <ul class="list-group" id="menu4_menu" style="background-color: white;display: none;">
+                    <li class="list-group-item">
+                        <a href="#">
+                            修改个人资料
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">
+                            注销个人信息
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item" onclick="showPersonMenu('menu5')" style="margin-top: 10px;">
+								<span>
+									个人信息管理
+									<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+                                          style="float: right;" id="menu5_icon">
+									</span>
+								</span>
+                    </li>
+                    <ul class="list-group" id="menu5_menu" style="background-color: white;display: none;">
+                        <li class="list-group-item">
+                            <a href="#">
+                                修改个人资料
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">
+                                注销个人信息
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+    </div>
+    <div class="container" style="width: 75%;float: left;">
+        <!-- <div id="right_frame"></div> -->
+        <iframe marginwidth=0 marginheight=0 width="100%" height="auto" src="http://www.baidu.com" frameborder="no"
+                scrolling="no" id="iframep" allowtransparency="true" style="background: lightgrey"></iframe>
+    </div>
+</div>
+</body>
+</html>

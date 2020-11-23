@@ -1,7 +1,6 @@
 package com.jus.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jus.dao.IUserDao;
 import com.jus.domain.User;
 import com.jus.service.IUserService;
 import com.jus.uitl.JsonBean;
@@ -10,13 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -30,7 +26,7 @@ import java.util.UUID;
 public class UserController {
 
     private final IUserService userService;
-    private static final Logger logger = LoggerFactory.getLogger(IUserDao.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     public UserController(IUserService userService) {
@@ -47,7 +43,9 @@ public class UserController {
         JsonBean jsonBean = new JsonBean();
         if (user == null) {
             map.put("id", UUID.randomUUID().toString().replace("-", ""));
-            map.put("password",MyStringUtil.encrypt(map.get("password").toString()));
+            map.put("password", MyStringUtil.encrypt(map.get("password").toString()));
+            map.put("birthday",map.get("birthday").toString().replace("-",""));
+            logger.info("入参校验" + map);
             userService.saveUser(map);
             jsonBean.setRtCode("0");
             jsonBean.setRtMsg("成功");
@@ -63,6 +61,7 @@ public class UserController {
     @ResponseBody
     public User findUser(@RequestBody User data) {
         User user = userService.findUserByTelOrEmail(data);
+        logger.info("根据用户email或手机号所查到的用户信息" + user.toString());
         if (user == null) {
             return new User();
         }
@@ -72,16 +71,16 @@ public class UserController {
 
     @GetMapping("/login")
     public String getLogin() {
-        return "login";
+        return "index/login";
     }
 
     @GetMapping("/register")
     public String getRegister() {
-        return "register";
+        return "index/register";
     }
 
     @GetMapping("/index")
     public String getIndex() {
-        return "index/index";
+        return "index";
     }
 }
