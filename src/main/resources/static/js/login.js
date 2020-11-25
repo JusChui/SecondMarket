@@ -26,14 +26,15 @@ var login = function () {
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(dataq),
             success: function (data) {
-                console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(data));
                 if (data.id == null) {
                     toastr.info("帐号未注册!");
                 } else if (data.password == dataq.password) {
                     toastr.info("Success");
-                    // window.location.href = '/user/index';
+                    window.location.href = '/user/index';
+                    // window.location.href = '/user/index?id=' + data.id;
                 } else {
-                    toastr.info("账号未注册或账号密码不匹配");
+                    toastr.info("账号和密码不匹配");
                 }
             },
             error: function (jqXHR) {

@@ -17,93 +17,35 @@
     <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/index.js"></script>
     <title>家庭的理财记账系统 </title>
-    <script type="text/javascript">
-        $(function () {
-            window.setInterval(reinitIframe, 100);
-            var paramsValue = getParams();
-            console.log(paramsValue);
-            console.log()
-        });
-
-        function getParams() {
-            try {
-                var url = window.location.href;
-                var result = url.split("?")[1];
-                var k_v = result.split("&");
-                var obj = {};
-                for (var i = 0; i < k_v.length; i++) {
-                    var item = k_v[i].split("=");
-                    obj[item[0]] = item[1];
-                    return obj
-                }
-            } catch (e) {
-                console.warn("There has no param and value!");
-            }
-        }
-
-        function reinitIframe() {
-            var iframe = document.getElementById("iframep");
-            // var content = $("#iframep").contentWindow.document;
-            // console.log(content);
-            try {
-                var bHeight = iframe.contentWindow.document.body.scrollHeight;
-                var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-                var height = Math.max(bHeight, dHeight);
-                iframe.height = height;
-                console.log(height);
-            } catch (ex) {
-            }
-        }
-
-        function showPersonMenu(param) {
-            // console.log($("#person_icon").attr("class"));
-            if (param == 'person') {
-                $("#personal_menu").slideToggle(
-                    function () {
-                        ($("#person_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
-                            ($("#person_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#person_icon").attr("class",
-                            "glyphicon glyphicon-triangle-top"));
-                    }
-                );
-            } else if (param == 'family') {
-                $("#family_menu").slideToggle(
-                    function () {
-                        ($("#family_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
-                            ($("#family_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#family_icon").attr("class",
-                            "glyphicon glyphicon-triangle-top"));
-                    }
-                );
-            } else if (param == 'income') {
-                $("#income_menu").slideToggle(
-                    function () {
-                        ($("#income_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
-                            ($("#income_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#income_icon").attr("class",
-                            "glyphicon glyphicon-triangle-top"));
-                    }
-                );
-            } else if (param == 'menu4') {
-                $("#menu4_menu").slideToggle(
-                    function () {
-                        ($("#menu4_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
-                            ($("#menu4_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#menu4_icon").attr("class",
-                            "glyphicon glyphicon-triangle-top"));
-                    }
-                );
-            } else if (param == 'menu5') {
-                $("#menu5_menu").slideToggle(
-                    function () {
-                        ($("#menu5_icon").attr("class") == "glyphicon glyphicon-triangle-top") ?
-                            ($("#menu5_icon").attr("class", "glyphicon glyphicon-triangle-bottom")) : ($("#menu5_icon").attr("class",
-                            "glyphicon glyphicon-triangle-top"));
-                    }
-                );
-            }
-        }
-    </script>
     <style rel="stylesheet" type="text/css">
         body {
             background: lightgrey;
         }
+
+        /* 指正常的未被访问过的链接*/
+        #title:link {
+            text-decoration: none;
+            color: #0f0f0f;
+        }
+
+        /*指已经访问过的链接*/
+        #title:visited {
+            text-decoration: none;
+            color: #0f0f0f;
+        }
+
+        /*指鼠标在链接*/
+        #title:hover {
+            text-decoration: none;
+            color: #0f0f0f;
+        }
+
+        /* 指正在点的链接*/
+        #title:active {
+            text-decoration: none;
+            color: #0f0f0f;
+        }
+
     </style>
 </head>
 <body>
@@ -112,13 +54,15 @@
         <div class="row">
             <div class="page-header">
                 <h1>
-                    <font face="zapf dingbats">家庭理财记账系统 </font>
+                    <a href="/user/index" id="title"><font face="zapf dingbats">家庭理财记账系统 </font></a>
                     <small style="float: right;padding-top: 50px;font-size: 15px;">
                         <!-- 欢迎您:XXX! -->
-                        <a href="/user/login">[登录]</a>
-                        <a href="/user/register">[注册]</a>
+                        <span id="showName" style="display: none">欢迎您:<span id="nameLabel">XXX</span>!</span>
+                        <div id="showLogin" style="display: block">
+                            <a href="/user/login">[登录]</a>
+                            <a href="/user/register">[注册]</a>
+                        </div>
                     </small>
-
                 </h1>
                 <small>Subtext for header</small>
             </div>
@@ -127,22 +71,22 @@
     <div class="container" style="width: 25%;float: left;">
         <ul class="list-group">
             <li class="list-group-item" onclick="showPersonMenu('person')">
-						<span>
-							个人信息管理
-							<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="float: right;"
-                                  id="person_icon">
-							</span>
-						</span>
+                <span>
+                    个人信息管理
+                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true" style="float: right;"
+                          id="person_icon">
+                    </span>
+                </span>
             </li>
             <ul class="list-group" id="personal_menu" style="background-color: white;display: none;">
                 <li class="list-group-item">
-                    <a href="#">
+                    <a href="javascript:void(0);" onclick="load_update()">
                         修改个人资料
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#">
-                        注销个人信息
+                    <a href="javascript:void(0);" onclick="log_out()">
+                        注销登录
                     </a>
                 </li>
             </ul>
@@ -229,6 +173,8 @@
                         </li>
                     </ul>
                 </ul>
+            </ul>
+        </ul>
     </div>
     <div class="container" style="width: 75%;float: left;">
         <!-- <div id="right_frame"></div> -->

@@ -29,4 +29,17 @@ public interface IUserDao {
      * @return 返回User
      */
     User findUserByTelEmail(Map<String,Object> user);
+
+    /**
+     * 根据用户id查询用户
+     * @param id 用户id
+     * @return 返回User
+     */
+    User findById(String id);
+
+    /**
+     * 根据id更新用户信息
+     * @param user 用户信息
+     */
+    void updateUserById(User user);
 }

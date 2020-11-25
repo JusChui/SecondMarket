@@ -12,4 +12,8 @@ public interface IUserService {
     void saveUser(Map<String,Object> user);
 
     User findUserByTelEmail(Map<String,Object> user);
+
+    User findById(String id);
+
+    void updateUserById(User user);
 }

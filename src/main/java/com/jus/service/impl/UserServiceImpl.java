@@ -44,4 +44,19 @@ public class UserServiceImpl implements IUserService {
         return userDao.findUserByTelEmail(user);
     }
 
+    @Override
+    public User findById(String id) {
+        return userDao.findById(id);
+    }
+
+//    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateUserById(User user) {
+        try {
+            userDao.updateUserById(user);
+        } catch (Exception e) {
+            throw new RuntimeException("程序异常,更新失败！");
+        }
+    }
+
 }

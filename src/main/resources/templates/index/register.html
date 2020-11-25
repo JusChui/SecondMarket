@@ -74,7 +74,7 @@
                     type: "POST",
                     url: "/user/saveUser",
                     dataType: "json",
-                    data: $("#registerForm").serialize(),
+                    data: $("#registerForm").ghostsf_serialize(),
                     contentType: 'application/x-www-form-urlencoded;charset=utf-8',
                     success: function (data) {
                         if (data.rtCode == 0) {
@@ -154,6 +154,21 @@
             return false;
         }
     }
+
+    $.fn.ghostsf_serialize = function () {
+        var a = this.serializeArray();
+        var $radio = $('input[type=radio],input[type=checkbox]', this);
+        var temp = {};
+        $.each($radio, function () {
+            if (!temp.hasOwnProperty(this.name)) {
+                if ($("input[name='" + this.name + "']:checked").length == 0) {
+                    temp[this.name] = "";
+                    a.push({name: this.name, value: ""});
+                }
+            }
+        });
+        return jQuery.param(a);
+    };
 </script>
 <style>
     body {
@@ -200,14 +215,14 @@
     <form class="form-horizontal" id="registerForm" method="post">
         <!--昵称-->
         <div class="form-group">
-            <label for="inputEmail3" class="col-md-2 control-label">昵称</label>
+            <label for="nickName" class="col-md-2 control-label">昵称</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" id="nickName" placeholder="请输入昵称" name="nickname">
             </div>
         </div>
         <!--用户名-->
         <div class="form-group">
-            <label for="inputEmail3" class="col-md-2 control-label">用户名</label>
+            <label for="username" class="col-md-2 control-label">用户名</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" id="username" placeholder="请输入用户真实姓名" name="username">
             </div>
@@ -221,7 +236,7 @@
         </div>
         <!--手机号-->
         <div class="form-group">
-            <label for="inputEmail3" class="col-md-2 control-label">手机号</label>
+            <label for="inputTelNum" class="col-md-2 control-label">手机号</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" id="inputTelNum" placeholder="请输入手机号" name="telNum">
             </div>
@@ -244,7 +259,7 @@
         </div>
         <!--时间日期组件-->
         <div class="form-group">
-            <label class="col-md-2 control-label" for="datetimepicker1">选择日期</label>
+            <label class="col-md-2 control-label" for="datetimepicker1">出生日期</label>
             <div class='input-group date' id='datetimepicker1' style="padding-left: 15px;width: 50%">
                 <input type='text' class="form-control" id="birthday" name="birthday"/>
                 <span class="input-group-addon">
@@ -266,7 +281,7 @@
         </div>
         <!--身份类型单选按钮-->
         <div class="form-group">
-            <label for="inputPassword2" class="col-md-2 control-label">身份类型</label>
+            <label class="col-md-2 control-label">身份类型</label>
             <div class="col-md-10" style="width: auto">
                 <label class="radio-inline">
                     <input type="radio" name="type" id="inlineRadio1" value="1"> 家庭成员
@@ -279,7 +294,7 @@
 
         <!--验证码-->
         <div class="form-group">
-            <label for="inputPassword2" class="col-md-2 control-label">验证码</label>
+            <label class="col-md-2 control-label">验证码</label>
             <div class="col-md-10" style="width: 58%;">
                 <input type="text" id="checkCodeInput" class="form-control" placeholder="输入验证码"
                        style="width: auto;float: left" name="checkCode">

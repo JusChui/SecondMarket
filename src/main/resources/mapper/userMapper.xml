@@ -54,4 +54,22 @@
             </if>
         </where>
     </select>
+    <update id="updateUserById" parameterType="com.jus.domain.User">
+        update user_info set
+        username = #{username},
+        nickname = #{nickname},
+        e_mail = #{email},
+        telnum = #{telNum},
+        password = #{password},
+        birthday = #{birthday},
+        type = #{type},
+        gender = #{gender}
+        where id = #{id}
+    </update>
+    <select id="findById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Column_name_list"></include>
+        from user_info
+        where id = #{id}
+    </select>
 </mapper>
