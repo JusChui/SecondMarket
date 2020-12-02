@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--设置视口的宽度(值为设备的理想宽度)，页面初始缩放值<理想宽度/可见宽度>-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- 引入Bootstrap核心样式文件 -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- 引入toastr提示框核心样式文件 -->
+    <link rel="stylesheet" href="/assets/css/toastr.min.css" type="text/css">
+    <!-- 引入jQuery核心js文件 -->
+    <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 引入BootStrap核心js文件 -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <!--引入toastr提示框核心js文件-->
+    <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入vue核心js文件-->
+    <script src="/assets/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/addMember.js"></script>
+    <title>Title</title>
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        /* 指正常的未被访问过的链接*/
+        a:link {
+            text-decoration: none;
+        }
+
+        /*指已经访问过的链接*/
+        a:visited {
+            text-decoration: none;
+        }
+
+        /*指鼠标在链接*/
+        a:hover {
+            text-decoration: none;
+        }
+
+        /* 指正在点的链接*/
+        a:active {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="input-group">
+        <input type="text" class="form-control input-lg" id="param"
+               style="font-size: 14px" placeholder="请输入邮箱或手机号在查找用户">
+        <span class="input-group-addon btn btn-primary" id="q">搜索
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </span>
+    </div>
+</div>
+<div class="container" style="margin-top: 15px">
+    <table class="table table-hover" style="display: none" id="result">
+        <thead>
+        <tr>
+            <th>昵称</th>
+            <th>姓名</th>
+            <th>邮箱</th>
+            <th>手机号</th>
+            <th>出生日期</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td id="nickname"></td>
+            <td id="name"></td>
+            <td id="email"></td>
+            <td id="tel"></td>
+            <td id="birthday"></td>
+            <td id="gender"></td>
+            <td><a href="javascript:void(0);">添加为我的家庭成员</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

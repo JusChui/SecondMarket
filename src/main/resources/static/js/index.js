@@ -136,3 +136,8 @@ function log_out() {
         }
     });
 }
+
+//加载修改个人信息页面
+function load_add_family_person() {
+    $("#iframep").attr("src", "/family/addMember");
+}

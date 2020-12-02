@@ -1,7 +1,6 @@
 package com.jus.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jus.domain.User;
 import com.jus.service.IUserService;
@@ -25,6 +24,7 @@ import java.util.UUID;
  * @Date: 2020/11/9 17:39
  * @Description:
  */
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -79,11 +79,8 @@ public class UserController {
                 }
             }
         }
-        System.out.println("cookieId:" + cookieId);
+        logger.info("findUserById cookieId===>" + cookieId);
         logger.info("查询id====》" + map.get("id").toString());
-        /* System.out.println("查询id====》" + map.get("id").toString());
-        logger.info("查询id====》" + map.get("id").toString());
-        User user = userService.findById(map.get("id").toString());*/
         if (cookieId == null || "".equals(cookieId)) {
             jsonBean.setRtCode("-10000");
             jsonBean.setRtMsg("未登录");
@@ -110,6 +107,7 @@ public class UserController {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         JsonBean jsonBean = new JsonBean();
+        //获取存储在cookies中的userid
         String idInCookie = "";
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -157,7 +155,6 @@ public class UserController {
             //如果要修改手机号或邮箱,先检查手机号或邮箱是否被注册
             if ((!"".equals(map.get("email").toString()) && null != (map.get("email").toString())) ||
                     (!"".equals(map.get("telNum").toString()) && null != (map.get("telNum").toString()))) {
-//                User user0 = userService.findUserByTelEmail(map);
                 if (null == userService.findUserByTelEmail(map)) {
                     logger.info("修改为" + user.toString());
                     userService.updateUserById(user);
@@ -179,13 +176,13 @@ public class UserController {
     @RequestMapping(value = "/findUser")
     @ResponseBody
     public User login(@RequestBody User data, HttpServletResponse response) {
-//        HttpSession httpSession = request.getSession();
         User user = userService.findUserByTelOrEmail(data);
         if (user == null) {
             logger.info("根据用户email或手机号未查到用户信息");
             return new User();
         } else {
             logger.info("根据用户email或手机号所查到的用户信息" + user.toString());
+            //查询到用户信息，登录时将用户id存到cookies中
             user.setPassword(MyStringUtil.decrypt(user.getPassword()));
             Cookie cookie = new Cookie("userId", user.getId());
             cookie.setPath("/");

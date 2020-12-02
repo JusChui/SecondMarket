@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jus.dao.IFamilyDao">
+    <resultMap id="BaseResultMap" type="com.jus.domain.Family">
+        <id property="family_id" column="FAMILY_ID"/>
+        <result property="user_id" column="USER_ID"/>
+        <result property="user_count" column="FAMILY_USER_COUNT"/>
+        <collection property="users" ofType="com.jus.domain.User">
+            <id property="id" column="id"/>
+            <result property="telNum" column="telnum"/>
+            <result property="password" column="password"/>
+            <result property="email" column="e_mail"/>
+            <result property="nickname" column="nickname"/>
+            <result property="username" column="username"/>
+            <result property="type" column="type"/>
+            <result property="birthday" column="birthday"/>
+            <result property="gender" column="gender"/>
+        </collection>
+    </resultMap>
+</mapper>

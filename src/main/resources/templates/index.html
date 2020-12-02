@@ -9,12 +9,16 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <!-- 引入Bootstrap核心样式文件 -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- 引入toastr提示框核心样式文件 -->
     <link rel="stylesheet" href="/assets/css/toastr.min.css" type="text/css">
     <!-- 引入jQuery核心js文件 -->
     <script src="/assets/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <!-- 引入BootStrap核心js文件 -->
     <script src="/assets/js/bootstrap.min.js"></script>
+    <!--引入toastr提示框核心js文件-->
     <script src="/assets/js/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+    <!--引入vue核心js文件-->
+    <script src="/assets/js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/index.js"></script>
     <title>家庭的理财记账系统 </title>
     <style rel="stylesheet" type="text/css">
@@ -100,13 +104,13 @@
             </li>
             <ul class="list-group" id="family_menu" style="background-color: white;display: none;">
                 <li class="list-group-item">
-                    <a href="#">
-                        查看家庭成员信息
+                    <a href="javascript:void(0);" onclick="load_add_family_person()">
+                        添加家庭成员
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="#">
-                        管理个人信息
+                        查看家庭成员
                     </a>
                 </li>
             </ul>
@@ -178,7 +182,7 @@
     </div>
     <div class="container" style="width: 75%;float: left;">
         <!-- <div id="right_frame"></div> -->
-        <iframe marginwidth=0 marginheight=0 width="100%" height="auto" src="http://www.baidu.com" frameborder="no"
+        <iframe marginwidth=0 marginheight=0 width="100%" height="auto" src="https://www.runoob.com/" frameborder="no"
                 scrolling="no" id="iframep" allowtransparency="true" style="background: lightgrey"></iframe>
     </div>
 </div>
